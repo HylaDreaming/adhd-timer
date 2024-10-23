@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Time Timer</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+    }
+    #timer {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    button {
+      font-size: 1.2em;
+      padding: 10px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <div id="timer">25:00</div>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="resetTimer()">Reset</button>
+  </div>
+
+  <script>
+    let timeLeft = 25 * 60;  // Set initial time (25 minutes)
+    let timerInterval;
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          document.getElementById("timer").textContent = formatTime(timeLeft);
+        } else {
+          clearInterval(timerInterval);
+          alert("Time's up!");
+        }
+      }, 1000);
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timeLeft = 25 * 60;
+      document.getElementById("timer").textContent = "25:00";
+    }
+
+    function formatTime(seconds) {
+      let minutes = Math.floor(seconds / 60);
+      let secs = seconds % 60;
+      return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+  </script>
+</body>
+</html>
